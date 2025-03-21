@@ -1,0 +1,16 @@
+{
+  "name": "cs4220_spotify",
+  "version": "1.0.0",
+  "description": "Keeping Spotify Client ID and Client Secret Safe. 1. Create a .env file to store API keys  add something like this example: CLIENT_ID=your_client_id          CLIENT_SECRET=your_client_secret",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "inquirer": "^12.5.0"
+  }
+}
