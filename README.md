@@ -12,6 +12,8 @@ example: CLIENT_ID=your_client_id
    const clientID = process.env.CLIENT_ID
    const clientSecret = process.env.CLIENT_SECRET
 this avoids hardcoding your keys
+
+4. import dotenv and have dotenv.config in file you will be importing fields from dotenv.
 -------------------------------------------------------------
 
 
