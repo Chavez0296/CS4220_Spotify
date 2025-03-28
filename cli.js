@@ -5,7 +5,7 @@ import { searchArtistByKeyboard, showKeywordHistory } from './app.js';
 const cli = yargs(hideBin(process.argv));
 
 cli.command(
-    'search <keyboard>',
+    'search <keyword>',
     'Search for an artist or band with a keyword(s)',
     (yargs) => {
         yargs.positional('keyword' , {
