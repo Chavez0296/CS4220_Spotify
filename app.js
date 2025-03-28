@@ -38,8 +38,8 @@ export const searchArtistByKeyboard = async (keyword) => {
                 })),
             },
         ]);
-        // unfinished
-        const selectedArtist = await api.searchAPI(selectedID);
+
+        const selectedArtist = await api.searchID(selectedID);
 
         await db.insert('search_history_artist', selectedArtist);
 
