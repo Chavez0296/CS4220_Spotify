@@ -59,8 +59,8 @@ export const searchID = async (id) => {
     }
 };
 
-const art = await searchAPI('Eminem');
-console.log(art);
+// const art = await searchAPI('Eminem');
+// console.log(art);
 
-const testing = await searchID('0C0XlULifJtAgn6ZNCW2eu');
-console.log(testing);
+// const testing = await searchID('0C0XlULifJtAgn6ZNCW2eu');
+// console.log(testing);
