@@ -39,10 +39,17 @@ export const searchArtistByKeyboard = async (keyword) => {
             },
         ]);
         // unfinished
-        const selectedArtist = results.find((artist) => artist.id === selectedID);
+        const selectedArtist = await api.searchAPI(selectedID);
 
         await db.insert('search_history_artist', selectedArtist);
-        printArtist(selectedArtist);
+
+        printArtist({
+            name: selectedArtist.name,
+            genre: selectedArtist.genres?.join(', ') || 'Unknown',
+            popularity: selectedArtist.popularity,
+            followers: selectedArtist.followers?.total || selectedArtist.followers,
+            url: selectedArtist.external_urls?.spotify || selectedArtist.url,
+        });
         
     } catch (error) {
         console.error('Search Error:', error.message);
