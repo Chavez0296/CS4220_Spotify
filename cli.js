@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { searchArtistByKeyboard, showKeywordHistory } from './app.js';
+import { searchArtistByKeyword, showKeywordHistory } from './app.js';
 
 const cli = yargs(hideBin(process.argv));
 
@@ -14,7 +14,7 @@ cli.command(
     });
     },
     (argv) => {
-        searchArtistByKeyboard(argv.keyword);
+        searchArtistByKeyword(argv.keyword);
     }
 );
 

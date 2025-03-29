@@ -14,7 +14,7 @@ const printArtist = (artist) => {
 };
 
 // main search function
-export const searchArtistByKeyboard = async (keyword) => {
+export const searchArtistByKeyword = async (keyword) => {
     try {
         const data = await api.searchAPI(keyword);
 
@@ -78,7 +78,7 @@ export const showKeywordHistory = async () => {
         ]);
 
         if (keyword !== 'Exit') {
-            await searchArtistByKeyboard(keyword);
+            await searchArtistByKeyword(keyword);
         }
 
     } catch (err) {
