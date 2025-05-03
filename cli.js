@@ -24,12 +24,12 @@ cli.command(
     (yargs) => {
         yargs.positional('type', {
             desrcibe: 'Choose between keywords or selections',
-            choices: ['keywords','selections'],
+            choices: ['keywords','selections'], //updated so that choices were distinct
             type: 'string',
         });
     },
     (argv) => {
-        if (argv.type === 'keywords') {
+        if (argv.type === 'keywords') { //updated so flow of output is correct based on choice 
             showArtistHistory();
         } else if(argv.type === 'selections'){
             showSelectionHistory();
