@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { searchArtistByKeyword, showArtistHistory } from './app.js';
+import { searchArtistByKeyword, showArtistHistory, showSelectionHistory } from './app.js';
 
 const cli = yargs(hideBin(process.argv));
 
@@ -24,15 +24,17 @@ cli.command(
     (yargs) => {
         yargs.positional('type', {
             desrcibe: 'Choose between keywords or selections',
-            choices: ['artists'],
+            choices: ['keywords','selections'],
+            type: 'string',
         });
     },
     (argv) => {
-        if (argv.type === 'artists') {
+        if (argv.type === 'keywords') {
             showArtistHistory();
+        } else if(argv.type === 'selections'){
+            showSelectionHistory();
+        }
     }
-
-}
 );
 
 cli.help().argv;
