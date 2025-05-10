@@ -1,0 +1,36 @@
+import express from 'express';
+
+import * as api from '../services/api.js';
+import db from '../services/db.js';
+
+const router = express.Router();
+
+router.get('/', async(req,res) => {
+    try{
+        const { keyword } = req.query;
+
+        if (!keyword) {
+            return res.status(400).json({ error: 'Keyword query parameter is required' });
+        }
+
+        const data = await api.searchAPI(keyword);
+
+        if (!data.items || data.items.length === 0) {
+            return res.status(404).json({ error: 'Artist not found' });
+        }
+
+          
+        const artist = data.items[0]; // get first result
+          
+        const result = {
+            artist: artist.name,
+            id: artist.id
+        };
+
+        res.json(result);
+    } catch(err){
+       res.status(500).json({ error: err}); 
+    }
+});
+
+export default router;
