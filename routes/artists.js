@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async(req,res) => {
     try{
         const { keyword } = req.query;
-
+        //http://localhost:8888/artists?keyword=Eminem
         if (!keyword) {
             return res.status(400).json({ error: 'Keyword query parameter is required' });
         }
