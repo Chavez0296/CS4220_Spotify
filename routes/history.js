@@ -3,29 +3,27 @@ import db from '../services/db.js';
 
 const router = express.Router();
 
+// http://localhost:8888/history?type=keywords
 router.get('/', async (req, res) => {
     const { type } = req.query;
 
-    if (!type || !['keywords', 'selections'].includes(type)) {
-        return res.status(400).json({ error: 'Query parameter "type" is required and must be either "keywords" or "selectiosn".' });
+    //
+    // create error message when user doesn't include or missing "keywords"
+    //
+
+
+    const collectionName = type === 'keywords' ? 'SearchHistoryKeyword' : 'SearchHistorySelection';
+
+    try {
+        const cursor = await db.find(collectionName);
+        const results = await cursor.toArray();
+
+        // Remove MongoDB _id from response
+        const cleaned = results.map(({ _id, ...rest }) => rest);
+        res.json(cleaned);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    // handles "keywords" logic
-    if (type === 'keywords') {
-        try {
-            const records = await db.find('SearchHistoryKeyword');
-
-            const formatted = records.map((entry) => ({
-                keyword: entry.keyword,
-                date: entry.date,
-            }));
-
-            return res.json({ keywords: formatted });
-        } catch (err) {
-            return res.status(500).json({ error: 'Failed to fetch keyword history.' })
-        }
-    }
-    // ---------------------------------------------------------------------------
-
 });
 
 export default router;
