@@ -7,10 +7,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     const { type } = req.query;
 
-    //
-    // create error message when user doesn't include or missing "keywords"
-    //
-
+    if (!type || !['keywords', 'selections'].includes(type)) {
+        return res
+            .status(400)
+            .json({ error: 'Query parameter "type" is required and must be either "keywords" or "selection".' });
+    }
 
     const collectionName = type === 'keywords' ? 'SearchHistoryKeyword' : 'SearchHistorySelection';
 
