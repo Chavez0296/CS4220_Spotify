@@ -9,17 +9,22 @@ router.get('/', async (req, res) => {
     if (!type || !['keywords', 'selections'].includes(type)) {
         return res.status(400).json({ error: 'Query parameter "type" is required and must be either "keywords" or "selectiosn".' });
     }
+    // handles "keywords" logic
+    if (type === 'keywords') {
+        try {
+            const records = await db.find('SearchHistoryKeyword');
 
-    try {
-        const collection = type === 'keywords' ? 'SearchHistoryKeyword' : 'SearchHistorySelection';
-        const results = await db.find(collection);
+            const formatted = records.map((entry) => ({
+                keyword: entry.keyword,
+                date: entry.date,
+            }));
 
-        const cleaned = results.map(({ _id, ...rest }) => rest);
-
-        res.json(cleaned);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch history.' })
+            return res.json({ keywords: formatted });
+        } catch (err) {
+            return res.status(500).json({ error: 'Failed to fetch keyword history.' })
+        }
     }
+    // ---------------------------------------------------------------------------
 
 });
 
