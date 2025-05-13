@@ -33,7 +33,7 @@ router.get('/', async(req,res) => {
     }
 });
 
-//http://localhost:8888/artists/id?keyword=0C0XlULifJtAgn6ZNCW2eu
+//http://localhost:8888/artists/7dGJo4pcD2V6oG8kP0tJRR
 
 router.get('/:id', async (req, res) => {
   try {
@@ -43,8 +43,9 @@ router.get('/:id', async (req, res) => {
     
     res.json(artistID);
   } catch (err) {
-    res.status(500).json({error: 'ID wrong, Do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
+    res.status(500).json({error: 'ID wrong, do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
   }
 });
 
 export default router;
+
