@@ -40,8 +40,8 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     const artistID = await api.searchID(id);
+    
     res.json(artistID);
-   
   } catch (err) {
     res.status(500).json({error: 'ID wrong/missing. Do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
   }
