@@ -43,7 +43,7 @@ router.get('/:id', async (req, res) => {
     
     res.json(artistID);
   } catch (err) {
-    res.status(500).json({error: 'ID wrong/missing. Do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
+    res.status(500).json({error: 'ID wrong, Do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
   }
 });
 
