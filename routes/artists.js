@@ -35,18 +35,16 @@ router.get('/', async(req,res) => {
 
 //http://localhost:8888/artists/id?keyword=0C0XlULifJtAgn6ZNCW2eu
 
-router.get('/id', async (req, res) => {
-    try {
-    const {keyword} = req.query;
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
 
-    if (!keyword) {
-        return res.status(400).json({ error: 'ID missing do http://localhost:8888/artists?keyword=(Artist Name) to get an ID' });
-    }
-        const artistID = await api.searchID(keyword);
-
-        res.json(artistID);
-    } catch (err) {
-        res.status(500).json({error: err});
-    }
+    const artistID = await api.searchID(id);
+    res.json(artistID);
+   
+  } catch (err) {
+    res.status(500).json({error: 'ID wrong/missing. Do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
+  }
 });
+
 export default router;
