@@ -19,13 +19,20 @@ router.get('/', async(req,res) => {
             return res.status(404).json({ error: 'Artist not found' });
         }
 
-          
         const artist = data.items[0]; // get first result
-          
+        
         const result = {
             artist: artist.name,
             id: artist.id
         };
+        
+        const cursor = await db.find('SearchHistoryKeyword', { keyword: result.artist }); //pass keyword into 'SearchHistoryKeyword' table to retrieve data
+        //cursor = {keyword: 'Linkin Park'}
+        const matches = await cursor.toArray(); // convert cursor to an array 
+        // if matches is emptpy aka 0 then we store keyword in DB
+        if (matches.length === 0) {
+            await db.insert('SearchHistoryKeyword', { keyword: result.artist }); 
+        }
 
         res.json(result);
     } catch(err){

@@ -14,10 +14,10 @@ app.get('/', (req, res) => {
     res.send('Welcome to our Spotify App');
 });
 
-// use the poker router for routes starting with /poker
+// use the artists router for routes starting with /artists
 app.use('/artists', artists);
 
-// use the results router for routes starting with /results
+// use the history router for routes starting with /history
 app.use('/history', history);
 
 // start the server and connect to the database
