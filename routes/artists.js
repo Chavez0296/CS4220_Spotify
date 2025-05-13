@@ -47,12 +47,18 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     const artistID = await api.searchID(id);
-    
+
+    const cursor = await db.find('SearchHistorySelection', {id: artistID.id});
+    const matches = await cursor.toArray();
+
+    if (matches.length === 0) {
+      await db.insert('SearchHistorySelection', artistID);
+    }
+
     res.json(artistID);
   } catch (err) {
-    res.status(500).json({error: 'ID wrong, do http://localhost:8888/artists?keyword=(Artist Name) for ID'});
+    res.status(500).json({
+      error: 'ID is wrong, please try http://localhost:8888/artists?keyword=(Artist Name) for ID',
+    });
   }
 });
-
-export default router;
-
