@@ -18,23 +18,27 @@ router.get('/', async(req,res) => {
         if (!data.items || data.items.length === 0) {
             return res.status(404).json({ error: 'Artist not found' });
         }
-
-        const artist = data.items[0]; // get first result
         
-        const result = {
-            artist: artist.name,
-            id: artist.id
-        };
-        
-        const cursor = await db.find('SearchHistoryKeyword', { keyword: result.artist }); //pass keyword into 'SearchHistoryKeyword' table to retrieve data
-        //cursor = {keyword: 'Linkin Park'}
-        const matches = await cursor.toArray(); // convert cursor to an array 
-        // if matches is emptpy aka 0 then we store keyword in DB
-        if (matches.length === 0) {
-            await db.insert('SearchHistoryKeyword', { keyword: result.artist }); 
+        const artists = [];
+        for(const artist of data.items){
+         
+          const result = {
+              artist: artist.name,
+              id: artist.id
+          };
+          
+          const cursor = await db.find('SearchHistoryKeyword', { keyword: result.artist }); //pass keyword into 'SearchHistoryKeyword' table to retrieve data
+          //cursor = {keyword: 'Linkin Park'}
+          const matches = await cursor.toArray(); // convert cursor to an array 
+          // if matches is emptpy aka 0 then we store keyword in DB
+          if (matches.length === 0) {
+              
+              await db.insert('SearchHistoryKeyword', { keyword: result.artist }); 
+          }
+          artists.push(result);
         }
-
-        res.json(result);
+  
+        res.json(artists);
     } catch(err){
        res.status(500).json({ error: err}); 
     }
@@ -62,3 +66,5 @@ router.get('/:id', async (req, res) => {
     });
   }
 });
+
+export default router;
