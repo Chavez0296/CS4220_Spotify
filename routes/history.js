@@ -4,6 +4,9 @@ import db from '../services/db.js';
 const router = express.Router();
 
 // http://localhost:8888/history?type=keywords
+
+// http://localhost:8888/history?type=selections
+
 router.get('/', async (req, res) => {
     const { type } = req.query;
 
